@@ -1,0 +1,45 @@
+.sharing {
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    button {
+      position: absolute;
+      cursor: pointer;
+      bottom: 10px;
+      border: none;
+      background: transparent;
+      color: #fff;
+      padding: 15px;
+      border-radius: 100%;
+      border: 1px solid #4b4949;
+      transition: 0.1s ease-in all;
+
+      &:hover {
+        border: 1px solid #706d6d;
+        background-color: #7d6c6c68;
+      }
+    }
+  }
+
+  &__sharingBtn {
+    width: 20px;
+    height: 20px;
+  }
+
+  &__videoContainer {
+    min-width: 300px;
+    max-width: 300px;
+    border: 1px solid #4b4949;
+    border-radius: 5px;
+  }
+}

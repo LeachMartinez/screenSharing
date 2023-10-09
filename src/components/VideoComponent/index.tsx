@@ -1,11 +1,11 @@
-import { useRef } from "react";
-// import styles from "./VideoComponent.module.scss";
+import { useRef, useState } from "react";
+import styles from "./VideoComponent.module.scss";
 
 const VideoComponent = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [isSharing, setIsSharing] = useState(false);
 
-  const onStopCapture = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    event.preventDefault();
+  const stopCapture = async () => {
     const srcObj = videoRef.current!.srcObject as MediaStream;
     const tracks = srcObj.getTracks();
 
@@ -18,7 +18,8 @@ const VideoComponent = () => {
 
   const onStartCapture = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
-    await startCapture();
+    isSharing ? await startCapture() : stopCapture();
+    setIsSharing((isSharing) => !isSharing);
   }
 
   async function startCapture() {
@@ -36,15 +37,19 @@ const VideoComponent = () => {
   }
 
   return (
-    <>
-      <div>Screen Sharing</div>
-      <video ref={videoRef} style={{
-        width: "300px",
-        height: "300px"
-      }} autoPlay></video>
-      <button onClick={event => onStartCapture(event)}>Start</button>
-      <button onClick={event => onStopCapture(event)}>Stop</button>
-    </>
+    <div className={styles.sharing__wrapper} draggable={true}>
+
+      <video 
+        ref={videoRef}
+        className={styles.sharing__videoContainer}
+        autoPlay></video>
+
+      <div className={styles.sharing__buttons}>
+        <button onClick={event => onStartCapture(event)}>
+    
+        </button>
+      </div>
+    </div>
   )
 }
 
